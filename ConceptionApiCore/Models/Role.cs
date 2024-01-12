@@ -5,7 +5,7 @@ namespace Doctors.Models
     public class Role
     {
         [Key]
-        public Guid RoleID { get; set; }
+        public int RoleID { get; set; }
         public string? Title { get; set; }
         public string? Description { get; set; }
 

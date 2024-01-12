@@ -5,8 +5,8 @@ namespace Doctors.Models
     public class Permission
     {
         [Key]
-        public Guid PermissionID { get; set; }
-        public Guid RoleID { get; set; }
+        public int PermissionID { get; set; }
+        public int RoleID { get; set; }
         public string? Title { get; set; }
         public string? Module { get; set; }
         public string? Description { get; set; }

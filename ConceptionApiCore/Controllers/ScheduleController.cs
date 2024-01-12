@@ -37,7 +37,7 @@ namespace ConceptionApiCore.Controllers
         [HttpGet("{scheduleId:guid}")]
         [ProducesResponseType(200, Type = typeof(ScheduleDto))]
         [ProducesResponseType(404)]
-        public IActionResult GetSchedule(Guid scheduleId)
+        public IActionResult GetSchedule(int scheduleId)
         {
             var schedule = _scheduleRepository.GetSchedule(scheduleId);
 
@@ -55,7 +55,7 @@ namespace ConceptionApiCore.Controllers
         [HttpGet("{doctorId:guid}")]
         [ProducesResponseType(200, Type = typeof(IEnumerable<ScheduleDto>))]
         [ProducesResponseType(404)]
-        public IActionResult GetSchedulesByDoctor(Guid doctorId)
+        public IActionResult GetSchedulesByDoctor(int doctorId)
         {
             var schedules = _scheduleRepository.GetSchedulesByDoctor(doctorId);
 
@@ -103,7 +103,7 @@ namespace ConceptionApiCore.Controllers
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
         [ProducesResponseType(500)]
-        public IActionResult UpdateSchedule(Guid scheduleId, [FromBody] ScheduleDto scheduleDto)
+        public IActionResult UpdateSchedule(int scheduleId, [FromBody] ScheduleDto scheduleDto)
         {
             if (scheduleDto == null)
                 return BadRequest(ModelState);
@@ -135,7 +135,7 @@ namespace ConceptionApiCore.Controllers
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
         [ProducesResponseType(200, Type = typeof(ScheduleDto))]
-        public IActionResult DeleteSchedule(Guid scheduleId)
+        public IActionResult DeleteSchedule(int scheduleId)
         {
             if (!_scheduleRepository.ScheduleExists(scheduleId))
             {

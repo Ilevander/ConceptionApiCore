@@ -21,17 +21,17 @@ namespace ConceptionApiCore.Repository
             return _dbContext.Fees.ToList();
         }
 
-        public Fee GetFee(Guid feeId)
+        public Fee GetFee(int feeId)
         {
             return _dbContext.Fees.FirstOrDefault(f => f.FeeID == feeId);
         }
 
-        public ICollection<Fee> GetFeesByDoctor(Guid doctorId)
+        public ICollection<Fee> GetFeesByDoctor(int doctorId)
         {
             return _dbContext.Fees.Where(f => f.DoctorID == doctorId).ToList();
         }
 
-        public bool FeeExists(Guid feeId)
+        public bool FeeExists(int feeId)
         {
             return _dbContext.Fees.Any(f => f.FeeID == feeId);
         }
@@ -48,7 +48,7 @@ namespace ConceptionApiCore.Repository
             return Save();
         }
 
-        public bool DeleteFee(Guid feeId)
+        public bool DeleteFee(int feeId)
         {
             var feeToDelete = _dbContext.Fees.FirstOrDefault(f => f.FeeID == feeId);
             if (feeToDelete != null)

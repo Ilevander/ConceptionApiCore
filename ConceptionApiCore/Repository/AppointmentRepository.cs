@@ -21,22 +21,32 @@ namespace Doctors.Repository
             return _dbContext.Appointments.ToList();
         }
 
-        public Appointment GetAppointment(Guid appointmentId)
+        public Appointment GetAppointment(int appointmentId)
         {
-            return _dbContext.Appointments.FirstOrDefault(a => a.AppointmentID == appointmentId);
+            var appointment = _dbContext.Appointments.FirstOrDefault(a => a.AppointmentID == appointmentId);
+
+            if (appointment == null)
+            {
+                // Handle the scenario where no appointment is found, throw an exception, or return a default value.
+                throw new InvalidOperationException("Appointment not found");
+            }
+
+            return appointment;
         }
 
-        public ICollection<Appointment> GetAppointmentsByDoctor(Guid doctorId)
+
+
+        public ICollection<Appointment> GetAppointmentsByDoctor(int doctorId)
         {
             return _dbContext.Appointments.Where(a => a.DoctorID == doctorId).ToList();
         }
 
-        public ICollection<Appointment> GetAppointmentsByPatient(Guid patientId)
+        public ICollection<Appointment> GetAppointmentsByPatient(int patientId)
         {
             return _dbContext.Appointments.Where(a => a.PatientID == patientId).ToList();
         }
 
-        public bool AppointmentExists(Guid appointmentId)
+        public bool AppointmentExists(int appointmentId)
         {
             return _dbContext.Appointments.Any(a => a.AppointmentID == appointmentId);
         }
@@ -53,7 +63,7 @@ namespace Doctors.Repository
             return true;
         }
 
-        public bool DeleteAppointment(Guid appointmentId)
+        public bool DeleteAppointment(int appointmentId)
         {
             var appointmentToDelete = _dbContext.Appointments.Find(appointmentId);
             if (appointmentToDelete != null)

@@ -5,9 +5,9 @@ namespace ConceptionApiCore.Interfaces
     public interface IPatientRepository
     {
         ICollection<IPatientRepository> GetPatients();
-        Patient GetPatient(Guid id);
+        Patient? GetPatient(int id);
         ICollection<Booking> GetBookingByPatient(int id);
-        bool PatientExists(Guid id);
+        bool PatientExists(int id);
         bool CreatePatient (Patient patient);
         bool UpdatePatient (Patient patient);
         bool DeletePatient (Patient patient);

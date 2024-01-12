@@ -38,7 +38,7 @@ namespace ConceptionApiCore.Controllers
         [HttpGet("{patientId}")]
         [ProducesResponseType(200, Type = typeof(Patient))]
         [ProducesResponseType(400)]
-        public IActionResult GetPatient(Guid patientId)
+        public IActionResult GetPatient(int patientId)
         {
 
             if (!_patientRepository.PatientExists(patientId))
@@ -89,7 +89,7 @@ namespace ConceptionApiCore.Controllers
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
         [ProducesResponseType(500)]
-        public IActionResult UpdatePatient(Guid patientId, [FromBody] PatientDto updatePatient)
+        public IActionResult UpdatePatient(int patientId, [FromBody] PatientDto updatePatient)
         {
             if (updatePatient == null || patientId != updatePatient.PatientID)
             {
@@ -119,7 +119,7 @@ namespace ConceptionApiCore.Controllers
         [ProducesResponseType(200, Type = typeof(Patient))]
         [ProducesResponseType(404)]
         [ProducesResponseType(500)]
-        public IActionResult DeletePatient(Guid patientId)
+        public IActionResult DeletePatient(int patientId)
         {
             var patientToDelete = _patientRepository.GetPatient(patientId);
 

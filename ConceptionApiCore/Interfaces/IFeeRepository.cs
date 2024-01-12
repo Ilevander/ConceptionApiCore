@@ -10,18 +10,18 @@ namespace ConceptionApiCore.Interfaces
         ICollection<Fee> GetFees();
 
         // Retrieve a fee by its ID
-        Fee GetFee(Guid feeId);
+        Fee GetFee(int feeId);
 
         // Retrieve all fees for a specific doctor
-        ICollection<Fee> GetFeesByDoctor(Guid doctorId);
+        ICollection<Fee> GetFeesByDoctor(int doctorId);
 
-        bool FeeExists(Guid feeId);
+        bool FeeExists(int feeId);
 
         bool CreateFee(Fee fee);
 
         bool UpdateFee(Fee fee);
 
-        bool DeleteFee(Guid feeId);
+        bool DeleteFee(int feeId);
 
         bool Save();
     }

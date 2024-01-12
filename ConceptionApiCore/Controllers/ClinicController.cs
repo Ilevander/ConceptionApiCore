@@ -36,7 +36,7 @@ namespace ConceptionApiCore.Controllers
         [HttpGet("{clinicId:guid}")]
         [ProducesResponseType(200, Type = typeof(ClinicDto))]
         [ProducesResponseType(404)]
-        public IActionResult GetClinic(Guid clinicId)
+        public IActionResult GetClinic(int clinicId)
         {
             if (!_clinicRepository.ClinicExists(clinicId))
                 return NotFound();
@@ -91,7 +91,7 @@ namespace ConceptionApiCore.Controllers
         [ProducesResponseType(400)]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
-        public IActionResult UpdateClinic(Guid clinicId, [FromBody] ClinicDto clinicUpdate)
+        public IActionResult UpdateClinic(int clinicId, [FromBody] ClinicDto clinicUpdate)
         {
             if (clinicUpdate == null)
                 return BadRequest(ModelState);
@@ -121,7 +121,7 @@ namespace ConceptionApiCore.Controllers
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
         [ProducesResponseType(200, Type = typeof(ClinicDto))]
-        public IActionResult DeleteClinic(Guid clinicId)
+        public IActionResult DeleteClinic(int clinicId)
         {
             if (!_clinicRepository.ClinicExists(clinicId))
             {
@@ -145,7 +145,7 @@ namespace ConceptionApiCore.Controllers
         [HttpGet("{clinicId:guid}/doctors")]
         [ProducesResponseType(200, Type = typeof(IEnumerable<DoctorDto>))]
         [ProducesResponseType(404)]
-        public IActionResult GetDoctorsInClinic(Guid clinicId)
+        public IActionResult GetDoctorsInClinic(int clinicId)
         {
             if (!_clinicRepository.ClinicExists(clinicId))
                 return NotFound();
@@ -161,7 +161,7 @@ namespace ConceptionApiCore.Controllers
         [HttpGet("{clinicId:guid}/bookings")]
         [ProducesResponseType(200, Type = typeof(IEnumerable<BookingDto>))]
         [ProducesResponseType(404)]
-        public IActionResult GetBookingsInClinic(Guid clinicId)
+        public IActionResult GetBookingsInClinic(int clinicId)
         {
             if (!_clinicRepository.ClinicExists(clinicId))
                 return NotFound();

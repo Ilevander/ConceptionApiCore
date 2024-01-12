@@ -20,7 +20,7 @@ namespace ConceptionApiCore.Repository
             return _dbContext.Patients.ToList();
         }
 
-        public Patient GetPatient(Guid id)
+        public Patient? GetPatient(int id)
         {
             return _dbContext.Patients
                 .Include( p => p.Bookings)
@@ -28,14 +28,14 @@ namespace ConceptionApiCore.Repository
         }
 
 
-        public ICollection<Booking> GetBookingsByPatient(Guid id)
+        public ICollection<Booking> GetBookingsByPatient(int id)
         {
             var patient = _dbContext.Patients.Include(p => p.Bookings).FirstOrDefault(p => p.PatientID == id);
             return patient?.Bookings.ToList();
         }
 
 
-        public bool PatientExists(Guid id)
+        public bool PatientExists(int id)
         {
             return _dbContext.Patients.Any(p => p.PatientID == id);
         }

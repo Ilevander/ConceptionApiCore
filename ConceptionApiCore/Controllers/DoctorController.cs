@@ -10,45 +10,73 @@ using System.Numerics;
 
 namespace ConceptionApiCore.Controllers
 {
+    public class NotFoundException : Exception
+    {
+        public NotFoundException() : base("Entity not found.")
+        {
+        }
+
+        public NotFoundException(string message) : base(message)
+        {
+        }
+    }
     [Route("api/[controller]")]
     [ApiController]
     public class DoctorController : Controller
     {
         private readonly IDoctorRepository _doctorRepository;
         private readonly IMapper _mapper;
+        private readonly ILogger<DoctorController> _logger;
 
-        public DoctorController(IDoctorRepository doctorRepository, DataContext context,IMapper mapper)
+
+        public DoctorController(IDoctorRepository doctorRepository, DataContext context,IMapper mapper, ILogger<DoctorController> logger)
         {
             _doctorRepository = doctorRepository;
             _mapper = mapper;
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+
         }
 
         [HttpGet]
-        [ProducesResponseType(200, Type = typeof(IEnumerable<Doctor>))]
+        [ProducesResponseType(200, Type = typeof(IEnumerable<DoctorDto>))]
         public IActionResult GetDoctors()
         {
-            // Without using mapper bellow :
-            //var doctors = _doctorRepository.GetDoctors();
-            var doctors= _mapper.Map<List<DoctorDto>>(_doctorRepository.GetDoctors());
-            //Mapper do This code bellow without write it :
-            /*var newDoctor = new Doctor()
+            try
             {
-                DoctorName = doctors.Name;
-                .
-                .
-                .
-                .
-            }*/
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+                var doctors = _doctorRepository.GetDoctors();
+                var doctorDtos = _mapper.Map<List<DoctorDto>>(doctors);
 
-            return Ok(doctors);
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+
+                return Ok(doctorDtos);
+            }
+            catch (NotFoundException ex)
+            {
+                // Log the exception using ILogger
+                _logger.LogWarning(ex, "Doctors not found");
+
+                // Return a specific error message for not found scenario
+                return NotFound("Doctors not found");
+            }
+            catch (Exception ex)
+            {
+                // Log the exception using ILogger
+                _logger.LogError(ex, "An error occurred in GetDoctors");
+
+                // Return a more generic error message to the client
+                return StatusCode(500, "An unexpected error occurred");
+            }
         }
+
+
 
         [HttpGet("{doctorId:guid}")]
         [ProducesResponseType(200, Type = typeof(Doctor))]
         [ProducesResponseType(400)]
-        public IActionResult GetDoctor(Guid doctorId)
+        public IActionResult GetDoctor(int doctorId)
         {
             // Without using mapper : var doctors = _doctorRepository.GetDoctors();
             //Mapper do This code bellow without write it :
@@ -115,7 +143,7 @@ namespace ConceptionApiCore.Controllers
         [ProducesResponseType(400)]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
-        public IActionResult UpdateDoctor(Guid doctorId, [FromBody] DoctorDto updateDoctor)
+        public IActionResult UpdateDoctor(int doctorId, [FromBody] DoctorDto updateDoctor)
         {
             if (updateDoctor == null)
                 return BadRequest(ModelState);
@@ -150,7 +178,7 @@ namespace ConceptionApiCore.Controllers
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
         [ProducesResponseType(200, Type = typeof(Doctor))]
-        public IActionResult DeleteDoctor(Guid doctorId)
+        public IActionResult DeleteDoctor(int doctorId)
         {
             if (!_doctorRepository.DoctorExists(doctorId))
             {

@@ -23,16 +23,25 @@ namespace ConceptionApiCore.Repository
             return _dbContext.Bookings.ToList();
         }
 
-        public Booking GetBooking(Guid bookingId)
+        public Booking GetBooking(int bookingId)
         {
-            return _dbContext.Bookings.FirstOrDefault(b => b.BookingID == bookingId);
+            var booking = _dbContext.Bookings.FirstOrDefault(b => b.BookingID == bookingId);
+
+            if (booking == null)
+            {
+                // Handle the scenario where no booking is found, throw an exception, or return a default value.
+                throw new InvalidOperationException("Booking not found");
+            }
+
+            return booking;
         }
-        public ICollection<Booking> GetBookingsByPatient(Guid patientId)
+
+        public ICollection<Booking> GetBookingsByPatient(int patientId)
         {
             return _dbContext.Bookings.Where(b => b.PatientID == patientId).ToList();
         }
 
-        public bool BookingExists(Guid bookingId)
+        public bool BookingExists(int bookingId)
         {
             return _dbContext.Bookings.Any(b => b.BookingID == bookingId);
         }
@@ -48,7 +57,7 @@ namespace ConceptionApiCore.Repository
             return true;
         }
 
-        public bool DeleteBooking(Guid bookingId)
+        public bool DeleteBooking(int bookingId)
         {
             var bookingToDelete = _dbContext.Bookings.Find(bookingId);
             if (bookingToDelete == null)

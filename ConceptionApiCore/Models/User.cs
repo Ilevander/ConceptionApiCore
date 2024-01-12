@@ -5,8 +5,8 @@ namespace Doctors.Models
     public class User
     {
         [Key]
-        public Guid UserID { get; set; }
-        public Guid RoleID { get; set; }
+        public int UserID { get; set; }
+        public int RoleID { get; set; }
         public string? Username { get; set; } = string .Empty;
         public string? PasswordHash { get; set; } = string.Empty;
         public string? Email { get; set; }

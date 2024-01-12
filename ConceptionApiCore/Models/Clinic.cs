@@ -5,7 +5,7 @@ namespace Doctors.Models
     public class Clinic
     {
         [Key]
-        public Guid ClinicID { get; set; }
+        public int ClinicID { get; set; }
         public string? ClinicName { get; set; }
         public string? Location { get; set; }
 

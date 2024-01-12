@@ -22,19 +22,19 @@ namespace ConceptionApiCore.Repository
             return _dbContext.Schedules.ToList();
         }
 
-        public ICollection<Schedule> GetSchedulesByDoctor(Guid doctorId)
+        public ICollection<Schedule> GetSchedulesByDoctor(int doctorId)
         {
             return _dbContext.Schedules
                 .Where(s => s.DoctorID == doctorId)
                 .ToList();
         }
 
-        public Schedule GetSchedule(Guid scheduleId)
+        public Schedule GetSchedule(int scheduleId)
         {
             return _dbContext.Schedules.FirstOrDefault(s => s.ScheduleID == scheduleId);
         }
 
-        public bool ScheduleExists(Guid scheduleId)
+        public bool ScheduleExists(int scheduleId)
         {
             return _dbContext.Schedules.Any(s => s.ScheduleID == scheduleId);
         }
@@ -61,7 +61,7 @@ namespace ConceptionApiCore.Repository
             return true; // Assuming success, you might want to add error handling.
         }
 
-        public bool DeleteSchedule(Guid scheduleId)
+        public bool DeleteSchedule(int scheduleId)
         {
             var scheduleToDelete = _dbContext.Schedules.Find(scheduleId);
             if (scheduleToDelete == null)

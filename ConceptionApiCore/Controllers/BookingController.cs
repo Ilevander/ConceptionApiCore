@@ -36,7 +36,7 @@ namespace ConceptionApiCore.Controllers
         [HttpGet("{bookingId:guid}")]
         [ProducesResponseType(200, Type = typeof(Booking))]
         [ProducesResponseType(400)]
-        public IActionResult GetBooking(Guid bookingId)
+        public IActionResult GetBooking(int bookingId)
         {
             if (!_bookingRepository.BookingExists(bookingId))
                 return NotFound();
@@ -52,7 +52,7 @@ namespace ConceptionApiCore.Controllers
         [HttpGet("patient/{patientId:int}")]
         [ProducesResponseType(200, Type = typeof(IEnumerable<Booking>))]
         [ProducesResponseType(400)]
-        public IActionResult GetBookingsByPatient(Guid patientId)
+        public IActionResult GetBookingsByPatient(int patientId)
         {
             var bookings = _mapper.Map<List<BookingDto>>(_bookingRepository.GetBookingsByPatient(patientId));
 
@@ -96,7 +96,7 @@ namespace ConceptionApiCore.Controllers
         [ProducesResponseType(400)]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
-        public IActionResult UpdateBooking(Guid bookingId, [FromBody] BookingDto updateBooking)
+        public IActionResult UpdateBooking(int bookingId, [FromBody] BookingDto updateBooking)
         {
             if (updateBooking == null)
                 return BadRequest(ModelState);
@@ -129,7 +129,7 @@ namespace ConceptionApiCore.Controllers
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
         [ProducesResponseType(200, Type = typeof(Booking))]
-        public IActionResult DeleteBooking(Guid bookingId)
+        public IActionResult DeleteBooking(int bookingId)
         {
             if (!_bookingRepository.BookingExists(bookingId))
             {

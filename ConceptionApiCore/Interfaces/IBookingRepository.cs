@@ -8,12 +8,12 @@ namespace ConceptionApiCore.Interfaces
     public interface IBookingRepository
     {
         ICollection<Booking> GetBookings();
-        Booking GetBooking(Guid bookingId);
-        ICollection<Booking> GetBookingsByPatient(Guid patientId);
-        bool BookingExists(Guid bookingId);
+        Booking GetBooking(int bookingId);
+        ICollection<Booking> GetBookingsByPatient(int patientId);
+        bool BookingExists(int bookingId);
         bool CreateBooking(Booking booking);
         bool UpdateBooking(Booking booking);
-        bool DeleteBooking(Guid bookingId);
+        bool DeleteBooking(int bookingId);
         bool Save();
     }
 }

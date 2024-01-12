@@ -7,13 +7,13 @@ namespace ConceptionApiCore.Interfaces
     public interface IClinicRepository
     {
         ICollection<Clinic> GetClinics();
-        Clinic GetClinic(Guid clinicId);
-        ICollection<Doctor> GetDoctorsInClinic(Guid clinicId);
-        ICollection<Booking> GetBookingsInClinic(Guid clinicId);
-        bool ClinicExists(Guid clinicId);
+        Clinic GetClinic(int clinicId);
+        ICollection<Doctor> GetDoctorsInClinic(int clinicId);
+        ICollection<Booking> GetBookingsInClinic(int clinicId);
+        bool ClinicExists(int clinicId);
         bool CreateClinic(Clinic clinic);
         bool UpdateClinic(Clinic clinic);
-        bool DeleteClinic(Guid clinicId);
+        bool DeleteClinic(int clinicId);
         bool Save();
         Clinic GetClinic(string clinicName);
     }

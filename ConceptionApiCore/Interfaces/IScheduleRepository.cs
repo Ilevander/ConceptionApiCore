@@ -7,12 +7,12 @@ namespace ConceptionApiCore.Interfaces
     public interface IScheduleRepository
     {
         ICollection<Schedule> GetSchedules();
-        Schedule GetSchedule(Guid scheduleId);
-        ICollection<Schedule> GetSchedulesByDoctor(Guid doctorId);
-        bool ScheduleExists(Guid scheduleId);
+        Schedule GetSchedule(int scheduleId);
+        ICollection<Schedule> GetSchedulesByDoctor(int doctorId);
+        bool ScheduleExists(int scheduleId);
         bool CreateSchedule(Schedule schedule);
         bool UpdateSchedule(Schedule schedule);
-        bool DeleteSchedule(Guid scheduleId);
+        bool DeleteSchedule(int scheduleId);
         bool Save();
     }
 }

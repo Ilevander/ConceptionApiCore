@@ -3,7 +3,7 @@
     //DTOs are often used to transfer only the necessary data between layers of an application, and they help to avoid exposing the entire entity to external systems or clients.
     public class PatientDto
     {
-        public Guid PatientID { get; set; }
+        public int PatientID { get; set; }
         public string? Name { get; set; }
         public string? Mobile { get; set; }
         public string? Address { get; set; }

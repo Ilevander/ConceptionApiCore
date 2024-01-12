@@ -2,9 +2,9 @@
 {
     public class ScheduleDto
     {
-        public Guid ScheduleID { get; set; }
+        public int ScheduleID { get; set; }
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
-        public Guid DoctorID { get; set; }
+        public int DoctorID { get; set; }
     }
 }

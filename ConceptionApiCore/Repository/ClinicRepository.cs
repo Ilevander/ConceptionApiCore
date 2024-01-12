@@ -22,9 +22,9 @@ namespace ConceptionApiCore.Repository
             return _dbContext.Clinics.ToList();
         }
 
-        public Clinic GetClinic(Guid clinicId)
+        public Clinic GetClinic(int clinicId)
         {
-            return _dbContext.Clinics.FirstOrDefault(c => c.ClinicID == clinicId);
+            return  _dbContext.Clinics.FirstOrDefault(c => c.ClinicID == clinicId);
         }
 
         public Clinic GetClinic(string clinicName)
@@ -32,7 +32,7 @@ namespace ConceptionApiCore.Repository
             return _dbContext.Clinics.FirstOrDefault(c => c.ClinicName == clinicName);
         }
 
-        public bool ClinicExists(Guid clinicId)
+        public bool ClinicExists(int clinicId)
         {
             return _dbContext.Clinics.Any(c => c.ClinicID == clinicId);
         }
@@ -49,7 +49,7 @@ namespace ConceptionApiCore.Repository
             return Save();
         }
 
-        public bool DeleteClinic(Guid clinicId)
+        public bool DeleteClinic(int clinicId)
         {
             var clinicToDelete = GetClinic(clinicId);
             if (clinicToDelete == null)
@@ -66,12 +66,12 @@ namespace ConceptionApiCore.Repository
 
         // Implementation for additional methods with navigation properties
 
-        public ICollection<Doctor> GetDoctorsInClinic(Guid clinicId)
+        public ICollection<Doctor> GetDoctorsInClinic(int clinicId)
         {
             return _dbContext.Doctors.Where(d => d.ClinicID == clinicId).ToList();
         }
 
-        public ICollection<Booking> GetBookingsInClinic(Guid clinicId)
+        public ICollection<Booking> GetBookingsInClinic(int clinicId)
         {
             return _dbContext.Bookings.Where(b => b.ClinicID == clinicId).ToList();
         }

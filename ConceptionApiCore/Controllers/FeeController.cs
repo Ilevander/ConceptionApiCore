@@ -37,7 +37,7 @@ namespace ConceptionApiCore.Controllers
         [HttpGet("{feeId:guid}")]
         [ProducesResponseType(200, Type = typeof(FeeDto))]
         [ProducesResponseType(400)]
-        public IActionResult GetFee(Guid feeId)
+        public IActionResult GetFee(int feeId)
         {
             if (!_feeRepository.FeeExists(feeId))
                 return NotFound();
@@ -92,7 +92,7 @@ namespace ConceptionApiCore.Controllers
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
         [ProducesResponseType(204)]
-        public IActionResult UpdateFee(Guid feeId, [FromBody] FeeDto feeDto)
+        public IActionResult UpdateFee(int feeId, [FromBody] FeeDto feeDto)
         {
             if (feeDto == null || feeId != feeDto.FeeID)
                 return BadRequest(ModelState);
@@ -116,7 +116,7 @@ namespace ConceptionApiCore.Controllers
         [HttpDelete("{feeId:guid}")]
         [ProducesResponseType(200, Type = typeof(Fee))]
         [ProducesResponseType(404)]
-        public IActionResult DeleteFee(Guid feeId)
+        public IActionResult DeleteFee(int feeId)
         {
             var feeToDelete = _feeRepository.GetFee(feeId);
 

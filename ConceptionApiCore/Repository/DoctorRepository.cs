@@ -19,24 +19,24 @@ namespace ConceptionApiCore.Repository
             return _dbContext.Doctors.OrderBy(p=>p.DoctorID).ToList();
         }
 
-        public Doctor GetDoctor(Guid doctorId)
+        public Doctor? GetDoctor(int doctorId)
         {
             return _dbContext.Doctors.Where(p => p.DoctorID == doctorId).FirstOrDefault();
         }
 
-        public Doctor GetDoctor(string doctorName)
+        public Doctor? GetDoctor(string? doctorName)
         {
             return _dbContext.Doctors.Where(d => d.DoctorName == doctorName).FirstOrDefault();
         }
 
-        public decimal GetDoctorPrice(Guid doctorId)
+        public decimal GetDoctorPrice(int doctorId)
         {
             var fees = _dbContext.Doctors.Include(d => d.Fees).FirstOrDefault(d => d.DoctorID == doctorId)?.Fees;
             return fees?.Sum(f => f.Amount) ?? 0;
         }
 
 
-        public bool DoctorExists(Guid doctorId)
+        public bool DoctorExists(int doctorId)
         {
             return _dbContext.Doctors.Any(d => d.DoctorID == doctorId);
         }
@@ -53,7 +53,7 @@ namespace ConceptionApiCore.Repository
             return Save();
         }
 
-        public bool DeleteDoctor(Guid doctorId)
+        public bool DeleteDoctor(int doctorId)
         {
             var doctor = _dbContext.Doctors.Find(doctorId);
             if (doctor != null)

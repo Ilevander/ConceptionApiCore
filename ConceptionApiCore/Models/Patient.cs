@@ -5,7 +5,7 @@ namespace Doctors.Models
     public class Patient
     {
         [Key]
-        public Guid PatientID { get; set; }
+        public int PatientID { get; set; }
         public string? Name { get; set; }
         public string? Mobile { get; set; }
         public string? Address { get; set; }

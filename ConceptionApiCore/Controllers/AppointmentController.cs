@@ -38,7 +38,7 @@ namespace ConceptionApiCore.Controllers
         [HttpGet("{appointmentId:guid}")]
         [ProducesResponseType(200, Type = typeof(AppointmentDto))]
         [ProducesResponseType(400)]
-        public IActionResult GetAppointment(Guid appointmentId)
+        public IActionResult GetAppointment(int appointmentId)
         {
             if (!_appointmentRepository.AppointmentExists(appointmentId))
                 return NotFound();
@@ -54,7 +54,7 @@ namespace ConceptionApiCore.Controllers
         [HttpGet("doctor/{doctorId:guid}")]
         [ProducesResponseType(200, Type = typeof(IEnumerable<AppointmentDto>))]
         [ProducesResponseType(400)]
-        public IActionResult GetAppointmentsByDoctor(Guid doctorId)
+        public IActionResult GetAppointmentsByDoctor(int doctorId)
         {
             var appointments = _mapper.Map<List<AppointmentDto>>(_appointmentRepository.GetAppointmentsByDoctor(doctorId));
 
@@ -67,7 +67,7 @@ namespace ConceptionApiCore.Controllers
         [HttpGet("patient/{patientId:guid}")]
         [ProducesResponseType(200, Type = typeof(IEnumerable<AppointmentDto>))]
         [ProducesResponseType(400)]
-        public IActionResult GetAppointmentsByPatient(Guid patientId)
+        public IActionResult GetAppointmentsByPatient(int patientId)
         {
             var appointments = _mapper.Map<List<AppointmentDto>>(_appointmentRepository.GetAppointmentsByPatient(patientId));
 
@@ -111,7 +111,8 @@ namespace ConceptionApiCore.Controllers
         [ProducesResponseType(400)]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
-        public IActionResult UpdateAppointment(Guid appointmentId, [FromBody] AppointmentDto appointmentDto)
+        [ProducesResponseType(500)]
+        public IActionResult UpdateAppointment(int appointmentId, [FromBody] AppointmentDto appointmentDto)
         {
             if (appointmentDto == null || appointmentId != appointmentDto.AppointmentID)
                 return BadRequest();
@@ -128,16 +129,17 @@ namespace ConceptionApiCore.Controllers
             }
 
             _appointmentRepository.Save();
-
-            return Ok(_mapper.Map<AppointmentDto>(appointment));
+             
+            return Ok(appointmentDto);
         }
+
 
         [HttpDelete("{appointmentId:guid}")]
         [ProducesResponseType(400)]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
         [ProducesResponseType(200, Type = typeof(AppointmentDto))]
-        public IActionResult DeleteAppointment(Guid appointmentId)
+        public IActionResult DeleteAppointment(int appointmentId)
         {
             if (!_appointmentRepository.AppointmentExists(appointmentId))
                 return NotFound();
